@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anteprima Sito Web</title>
+    
+    <!-- Fonts: Playfair Display (Luxury) & Lato (Clean) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (No build step required) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Animations Library (AOS) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            400: '#D4AF37',
+                            500: '#C5A028',
+                            600: '#B48F17',
+                        },
+                        dark: {
+                            900: '#0a0a0a',
+                            800: '#121212',
+                            700: '#1c1c1c'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Parallax Effect */
+        }
+    </style>
+</head>
+<body class="bg-dark-900 text-gray-100 font-sans antialiased overflow-x-hidden">
+
+    <!-- NAVIGATION -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-dark-900/90 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <span class="font-serif text-2xl font-bold text-white tracking-wider dynamic-name">Ristorante</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition">Home</a>
+                        <a href="#menu" class="hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition">Menu</a>
+                        <a href="#about" class="hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition">Chi Siamo</a>
+                        <a href="#contact" class="bg-gold-500 text-black hover:bg-gold-400 px-6 py-2 rounded-full text-sm font-bold transition transform hover:scale-105">Prenota</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <div id="home" class="relative h-screen flex items-center justify-center hero-bg">
+        <div class="text-center px-4 max-w-4xl mx-auto" data-aos="fade-up" data-aos-duration="1000">
+            <p class="text-gold-400 font-bold tracking-[0.2em] uppercase text-sm md:text-base mb-4">Benvenuti da</p>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white mb-6 dynamic-name">
+                Nome Ristorante
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-300 font-light mb-10">
+                L'autentica esperienza culinaria a <span class="text-white font-medium border-b-2 border-gold-500 dynamic-city">Città</span>
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button onclick="openSalesModal()" class="px-8 py-4 bg-gold-500 text-dark-900 font-bold rounded-full hover:bg-white transition duration-300">
+                    Prenota un Tavolo
+                </button>
+                <button onclick="openSalesModal()" class="px-8 py-4 border border-white text-white font-bold rounded-full hover:bg-white hover:text-dark-900 transition duration-300">
+                    Visualizza Menu
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-24 bg-dark-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1974&auto=format&fit=crop" alt="Chef" class="rounded-lg shadow-2xl shadow-gold-500/20 grayscale hover:grayscale-0 transition duration-700">
+                </div>
+                <div data-aos="fade-left">
+                    <h3 class="text-gold-400 font-bold uppercase tracking-widest mb-2">La Nostra Storia</h3>
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-white mb-6">Tradizione e Passione</h2>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-6">
+                        Qui da <span class="dynamic-name font-bold text-white">...</span>, crediamo che ogni piatto racconti una storia. Utilizziamo solo ingredienti freschi e locali per portare in tavola i sapori veri della tradizione.
+                    </p>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-8">
+                        Situati nel cuore di <span class="dynamic-city font-bold text-white">...</span>, siamo il luogo perfetto per cene romantiche, pranzi di lavoro e momenti indimenticabili.
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="h-px w-12 bg-gold-500"></div>
+                        <span class="font-serif italic text-2xl text-white">Lo Chef</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HIGHLIGHTS / MENU PREVIEW -->
+    <section id="menu" class="py-24 bg-dark-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-serif font-bold text-white mb-4">I Nostri Piatti Forti</h2>
+                <div class="h-1 w-24 bg-gold-500 mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="group relative overflow-hidden rounded-xl" data-aos="fade-up" data-aos-delay="100">
+                    <div class="aspect-w-4 aspect-h-3">
+                        <img src="https://images.unsplash.com/photo-1574484284008-be9d62827022?q=80&w=1000&auto=format&fit=crop" class="object-cover w-full h-80 transition duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h3 class="text-2xl font-serif font-bold text-white mb-1">Pasta Fresca</h3>
+                        <p class="text-gray-300 text-sm">Fatta a mano ogni giorno</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group relative overflow-hidden rounded-xl" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?q=80&w=1000&auto=format&fit=crop" class="object-cover w-full h-80 transition duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h3 class="text-2xl font-serif font-bold text-white mb-1">Pizza Gourmet</h3>
+                        <p class="text-gray-300 text-sm">Lievitazione 72 ore</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group relative overflow-hidden rounded-xl" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1000&auto=format&fit=crop" class="object-cover w-full h-80 transition duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h3 class="text-2xl font-serif font-bold text-white mb-1">Secondi di Mare</h3>
+                        <p class="text-gray-300 text-sm">Pescato del giorno</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-serif font-bold text-white mb-6 dynamic-name">Ristorante</h2>
+            <div class="flex justify-center space-x-6 mb-8 text-gray-400">
+                <i class="fab fa-instagram text-2xl hover:text-gold-400 cursor-pointer"></i>
+                <i class="fab fa-facebook text-2xl hover:text-gold-400 cursor-pointer"></i>
+                <i class="fab fa-whatsapp text-2xl hover:text-gold-400 cursor-pointer"></i>
+            </div>
+            <p class="text-gray-600 text-sm">&copy; 2024 <span class="dynamic-name">Ristorante</span>. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+    <!-- --- AGENCY SALES HOOK (THE "INCEPTION" LAYER) --- -->
+    
+    <!-- 1. The "Preview Bar" (Always visible at bottom) -->
+    <div class="fixed bottom-0 left-0 w-full bg-white z-[100] shadow-[0_-4px_20px_rgba(0,0,0,0.2)] transform transition-transform duration-500" id="agency-bar">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide flex items-center gap-2">
+                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                    Live Demo
+                </div>
+                <p class="text-gray-800 text-sm font-medium">
+                    Ciao <span class="dynamic-name font-bold text-black">Proprietario</span>! Ecco una bozza del tuo nuovo sito.
+                </p>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="text-gray-500 text-sm hidden md:inline">Ti piace questo design?</span>
+                <a href="https://wa.me/391234567890?text=Ciao,%20ho%20visto%20la%20demo%20del%20sito%20web%20e%20vorrei%20saperne%20di%20più." target="_blank" class="bg-blue-600 text-white px-5 py-2 rounded-lg text-sm font-bold hover:bg-blue-700 transition shadow-lg flex items-center gap-2">
+                    <i class="fab fa-whatsapp"></i> Si, parliamone
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. The Modal (Triggers when they click functional buttons) -->
+    <div id="sales-modal" class="fixed inset-0 z-[110] bg-black/80 hidden items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl max-w-md w-full p-8 relative shadow-2xl transform scale-100 transition-all">
+            <button onclick="closeSalesModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            
+            <div class="text-center">
+                <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">Funzionalità Demo</h3>
+                <p class="text-gray-600 mb-6">
+                    In un sito reale, questo pulsante aprirebbe il sistema di prenotazione o chiamerebbe direttamente il tuo ristorante.
+                </p>
+                <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 mb-6 text-left">
+                    <p class="font-bold text-gray-800 text-sm mb-2">Perché questo sito vende di più?</p>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Caricamento istantaneo</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Foto ad alta qualità</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Ottimizzato per Google (SEO)</li>
+                    </ul>
+                </div>
+                <a href="https://wa.me/391234567890?text=Ciao,%20voglio%20attivare%20il%20mio%20sito." class="block w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition">
+                    Attiva questo sito per <span class="dynamic-name">...</span>
+                </a>
+                <button onclick="closeSalesModal()" class="mt-4 text-sm text-gray-400 hover:text-gray-600 underline">
+                    Torna alla demo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Init Animations
+        AOS.init();
+
+        // --- DYNAMIC CONTENT REPLACEMENT ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const params = new URLSearchParams(window.location.search);
+            
+            // 1. Get Parameters (Defaults provided if link is empty)
+            let businessName = params.get('name') || "Il Tuo Ristorante";
+            let cityName = params.get('city') || "Italia";
+
+            // 2. Clean Text (Capitalize Words)
+            const capitalize = (str) => str.replace(/\b\w/g, l => l.toUpperCase());
+            businessName = capitalize(businessName);
+            cityName = capitalize(cityName);
+
+            // 3. Update Title
+            document.title = `Anteprima: ${businessName}`;
+
+            // 4. Inject into HTML (Classes: dynamic-name, dynamic-city)
+            document.querySelectorAll('.dynamic-name').forEach(el => el.textContent = businessName);
+            document.querySelectorAll('.dynamic-city').forEach(el => el.textContent = cityName);
+        });
+
+        // --- MODAL LOGIC ---
+        function openSalesModal() {
+            const modal = document.getElementById('sales-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeSalesModal() {
+            const modal = document.getElementById('sales-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+    </script>
+</body>
+</html>
