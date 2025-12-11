@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS (No build step required) -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Animations Library (AOS) -->
@@ -46,11 +46,15 @@
     </script>
     
     <style>
-        .hero-bg {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop');
+        .hero-bg-container {
             background-size: cover;
             background-position: center;
             background-attachment: fixed; /* Parallax Effect */
+            transition: background-image 0.5s ease-in-out;
+        }
+        /* Gradient overlay for readability */
+        .hero-overlay {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
         }
     </style>
 </head>
@@ -68,7 +72,7 @@
                         <a href="#home" class="hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition">Home</a>
                         <a href="#menu" class="hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition">Menu</a>
                         <a href="#about" class="hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition">Chi Siamo</a>
-                        <a href="#contact" class="bg-gold-500 text-black hover:bg-gold-400 px-6 py-2 rounded-full text-sm font-bold transition transform hover:scale-105">Prenota</a>
+                        <a href="#contact" onclick="openSalesModal()" class="bg-gold-500 text-black hover:bg-gold-400 px-6 py-2 rounded-full text-sm font-bold transition transform hover:scale-105">Prenota</a>
                     </div>
                 </div>
             </div>
@@ -76,21 +80,28 @@
     </nav>
 
     <!-- HERO SECTION -->
-    <div id="home" class="relative h-screen flex items-center justify-center hero-bg">
-        <div class="text-center px-4 max-w-4xl mx-auto" data-aos="fade-up" data-aos-duration="1000">
-            <p class="text-gold-400 font-bold tracking-[0.2em] uppercase text-sm md:text-base mb-4">Benvenuti da</p>
-            <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white mb-6 dynamic-name">
+    <div id="home" class="relative h-screen flex items-center justify-center hero-bg-container">
+        <div class="absolute inset-0 hero-overlay"></div>
+        <div class="relative text-center px-4 max-w-5xl mx-auto z-10" data-aos="fade-up" data-aos-duration="1000">
+            <!-- Dynamic Tagline -->
+            <p id="hero-tagline" class="text-gold-400 font-bold tracking-[0.2em] uppercase text-sm md:text-base mb-4">
+                Eccellenza Culinaria
+            </p>
+            
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white mb-6 dynamic-name leading-tight">
                 Nome Ristorante
             </h1>
+            
             <p class="text-xl md:text-2xl text-gray-300 font-light mb-10">
-                L'autentica esperienza culinaria a <span class="text-white font-medium border-b-2 border-gold-500 dynamic-city">Città</span>
+                L'esperienza definitiva a <span class="text-white font-medium border-b-2 border-gold-500 dynamic-city">Città</span>
             </p>
+            
             <div class="flex flex-col sm:flex-row justify-center gap-4">
                 <button onclick="openSalesModal()" class="px-8 py-4 bg-gold-500 text-dark-900 font-bold rounded-full hover:bg-white transition duration-300">
                     Prenota un Tavolo
                 </button>
                 <button onclick="openSalesModal()" class="px-8 py-4 border border-white text-white font-bold rounded-full hover:bg-white hover:text-dark-900 transition duration-300">
-                    Visualizza Menu
+                    Scopri il Menu
                 </button>
             </div>
         </div>
@@ -101,64 +112,66 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <div data-aos="fade-right">
-                    <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1974&auto=format&fit=crop" alt="Chef" class="rounded-lg shadow-2xl shadow-gold-500/20 grayscale hover:grayscale-0 transition duration-700">
+                    <!-- Dynamic Chef Image -->
+                    <img id="chef-img" src="" alt="Chef" class="rounded-lg shadow-2xl shadow-gold-500/20 grayscale hover:grayscale-0 transition duration-700 w-full object-cover h-[500px]">
                 </div>
                 <div data-aos="fade-left">
-                    <h3 class="text-gold-400 font-bold uppercase tracking-widest mb-2">La Nostra Storia</h3>
-                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-white mb-6">Tradizione e Passione</h2>
+                    <h3 class="text-gold-400 font-bold uppercase tracking-widest mb-2">La Nostra Filosofia</h3>
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-white mb-6">Amore per il territorio</h2>
                     <p class="text-gray-400 text-lg leading-relaxed mb-6">
-                        Qui da <span class="dynamic-name font-bold text-white">...</span>, crediamo che ogni piatto racconti una storia. Utilizziamo solo ingredienti freschi e locali per portare in tavola i sapori veri della tradizione.
+                        Benvenuti da <span class="dynamic-name font-bold text-white">...</span>. La nostra cucina nasce dalla passione per le materie prime semplici e genuine.
                     </p>
                     <p class="text-gray-400 text-lg leading-relaxed mb-8">
-                        Situati nel cuore di <span class="dynamic-city font-bold text-white">...</span>, siamo il luogo perfetto per cene romantiche, pranzi di lavoro e momenti indimenticabili.
+                        Situati a <span class="dynamic-city font-bold text-white">...</span>, offriamo un'atmosfera unica dove ogni dettaglio è curato per farvi sentire a casa, ma con un tocco di eleganza.
                     </p>
                     <div class="flex items-center gap-4">
                         <div class="h-px w-12 bg-gold-500"></div>
-                        <span class="font-serif italic text-2xl text-white">Lo Chef</span>
+                        <span class="font-serif italic text-2xl text-white">La Cucina</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- HIGHLIGHTS / MENU PREVIEW -->
+    <!-- MENU PREVIEW (Dynamic Cards) -->
     <section id="menu" class="py-24 bg-dark-900 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl font-serif font-bold text-white mb-4">I Nostri Piatti Forti</h2>
+                <h2 class="text-4xl font-serif font-bold text-white mb-4">I Nostri Classici</h2>
                 <div class="h-1 w-24 bg-gold-500 mx-auto"></div>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Card 1 -->
-                <div class="group relative overflow-hidden rounded-xl" data-aos="fade-up" data-aos-delay="100">
-                    <div class="aspect-w-4 aspect-h-3">
-                        <img src="https://images.unsplash.com/photo-1574484284008-be9d62827022?q=80&w=1000&auto=format&fit=crop" class="object-cover w-full h-80 transition duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                <div class="group relative overflow-hidden rounded-xl bg-dark-800" data-aos="fade-up" data-aos-delay="100">
+                    <div class="aspect-w-4 aspect-h-3 h-64 overflow-hidden">
+                        <img id="dish-img-1" src="" class="object-cover w-full h-full transition duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100">
                     </div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
-                    <div class="absolute bottom-0 left-0 p-6">
-                        <h3 class="text-2xl font-serif font-bold text-white mb-1">Pasta Fresca</h3>
-                        <p class="text-gray-300 text-sm">Fatta a mano ogni giorno</p>
+                    <div class="p-6">
+                        <h3 id="dish-title-1" class="text-2xl font-serif font-bold text-white mb-2">Piatto 1</h3>
+                        <p id="dish-desc-1" class="text-gray-400 text-sm">Descrizione del piatto...</p>
                     </div>
                 </div>
 
                 <!-- Card 2 -->
-                <div class="group relative overflow-hidden rounded-xl" data-aos="fade-up" data-aos-delay="200">
-                    <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?q=80&w=1000&auto=format&fit=crop" class="object-cover w-full h-80 transition duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
-                    <div class="absolute bottom-0 left-0 p-6">
-                        <h3 class="text-2xl font-serif font-bold text-white mb-1">Pizza Gourmet</h3>
-                        <p class="text-gray-300 text-sm">Lievitazione 72 ore</p>
+                <div class="group relative overflow-hidden rounded-xl bg-dark-800" data-aos="fade-up" data-aos-delay="200">
+                    <div class="aspect-w-4 aspect-h-3 h-64 overflow-hidden">
+                        <img id="dish-img-2" src="" class="object-cover w-full h-full transition duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                    </div>
+                    <div class="p-6">
+                        <h3 id="dish-title-2" class="text-2xl font-serif font-bold text-white mb-2">Piatto 2</h3>
+                        <p id="dish-desc-2" class="text-gray-400 text-sm">Descrizione del piatto...</p>
                     </div>
                 </div>
 
                 <!-- Card 3 -->
-                <div class="group relative overflow-hidden rounded-xl" data-aos="fade-up" data-aos-delay="300">
-                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1000&auto=format&fit=crop" class="object-cover w-full h-80 transition duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
-                    <div class="absolute bottom-0 left-0 p-6">
-                        <h3 class="text-2xl font-serif font-bold text-white mb-1">Secondi di Mare</h3>
-                        <p class="text-gray-300 text-sm">Pescato del giorno</p>
+                <div class="group relative overflow-hidden rounded-xl bg-dark-800" data-aos="fade-up" data-aos-delay="300">
+                    <div class="aspect-w-4 aspect-h-3 h-64 overflow-hidden">
+                        <img id="dish-img-3" src="" class="object-cover w-full h-full transition duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                    </div>
+                    <div class="p-6">
+                        <h3 id="dish-title-3" class="text-2xl font-serif font-bold text-white mb-2">Piatto 3</h3>
+                        <p id="dish-desc-3" class="text-gray-400 text-sm">Descrizione del piatto...</p>
                     </div>
                 </div>
             </div>
@@ -166,7 +179,7 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="bg-black py-12 border-t border-gray-800">
+    <footer class="bg-black py-12 border-t border-gray-800 pb-24">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <h2 class="text-3xl font-serif font-bold text-white mb-6 dynamic-name">Ristorante</h2>
             <div class="flex justify-center space-x-6 mb-8 text-gray-400">
@@ -178,9 +191,7 @@
         </div>
     </footer>
 
-    <!-- --- AGENCY SALES HOOK (THE "INCEPTION" LAYER) --- -->
-    
-    <!-- 1. The "Preview Bar" (Always visible at bottom) -->
+    <!-- AGENCY SALES HOOK -->
     <div class="fixed bottom-0 left-0 w-full bg-white z-[100] shadow-[0_-4px_20px_rgba(0,0,0,0.2)] transform transition-transform duration-500" id="agency-bar">
         <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-3">
@@ -193,84 +204,157 @@
                 </p>
             </div>
             <div class="flex items-center gap-3">
-                <span class="text-gray-500 text-sm hidden md:inline">Ti piace questo design?</span>
-                <a href="https://wa.me/391234567890?text=Ciao,%20ho%20visto%20la%20demo%20del%20sito%20web%20e%20vorrei%20saperne%20di%20più." target="_blank" class="bg-blue-600 text-white px-5 py-2 rounded-lg text-sm font-bold hover:bg-blue-700 transition shadow-lg flex items-center gap-2">
+                <a href="https://wa.me/393240779550?text=Ciao,%20ho%20visto%20la%20demo%20del%20sito%20web%20e%20vorrei%20saperne%20di%20più." target="_blank" class="bg-blue-600 text-white px-5 py-2 rounded-lg text-sm font-bold hover:bg-blue-700 transition shadow-lg flex items-center gap-2">
                     <i class="fab fa-whatsapp"></i> Si, parliamone
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- 2. The Modal (Triggers when they click functional buttons) -->
+    <!-- MODAL -->
     <div id="sales-modal" class="fixed inset-0 z-[110] bg-black/80 hidden items-center justify-center p-4 backdrop-blur-sm">
         <div class="bg-white rounded-2xl max-w-md w-full p-8 relative shadow-2xl transform scale-100 transition-all">
             <button onclick="closeSalesModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
                 <i class="fas fa-times text-xl"></i>
             </button>
-            
             <div class="text-center">
                 <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl">
                     <i class="fas fa-rocket"></i>
                 </div>
                 <h3 class="text-2xl font-bold text-gray-900 mb-2">Funzionalità Demo</h3>
-                <p class="text-gray-600 mb-6">
-                    In un sito reale, questo pulsante aprirebbe il sistema di prenotazione o chiamerebbe direttamente il tuo ristorante.
-                </p>
-                <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 mb-6 text-left">
-                    <p class="font-bold text-gray-800 text-sm mb-2">Perché questo sito vende di più?</p>
-                    <ul class="text-sm text-gray-600 space-y-2">
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Caricamento istantaneo</li>
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Foto ad alta qualità</li>
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Ottimizzato per Google (SEO)</li>
-                    </ul>
-                </div>
+                <p class="text-gray-600 mb-6">In un sito reale, questo pulsante gestirebbe le prenotazioni automaticamente.</p>
                 <a href="https://wa.me/391234567890?text=Ciao,%20voglio%20attivare%20il%20mio%20sito." class="block w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition">
                     Attiva questo sito per <span class="dynamic-name">...</span>
                 </a>
-                <button onclick="closeSalesModal()" class="mt-4 text-sm text-gray-400 hover:text-gray-600 underline">
-                    Torna alla demo
-                </button>
             </div>
         </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
+    <!-- SMART CONTENT ENGINE -->
     <script>
-        // Init Animations
         AOS.init();
 
-        // --- DYNAMIC CONTENT REPLACEMENT ---
+        // --- ASSET DICTIONARY ---
+        const themes = {
+            pizza: {
+                bg: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=2070&auto=format&fit=crop",
+                accent: "Il vero sapore del forno a legna",
+                chef: "https://images.unsplash.com/photo-1583394838336-acd977736f90?q=80&w=800&auto=format&fit=crop",
+                dishes: [
+                    { img: "https://images.unsplash.com/photo-1574071318500-8c23633d430e?q=80&w=800", title: "Margherita DOP", desc: "Pomodoro San Marzano, Mozzarella di Bufala" },
+                    { img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=800", title: "Diavola", desc: "Salame piccante, olive taggiasche" },
+                    { img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?q=80&w=800", title: "Gourmet", desc: "Impasto lievitato 72 ore" }
+                ]
+            },
+            seafood: {
+                bg: "https://images.unsplash.com/photo-1615141982880-19ed7e6656ca?q=80&w=2070&auto=format&fit=crop",
+                accent: "Sapori freschi dal mare",
+                chef: "https://images.unsplash.com/photo-1577106263724-2c8e03bfe9cf?q=80&w=800&auto=format&fit=crop",
+                dishes: [
+                    { img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=800", title: "Spaghetti alle Vongole", desc: "Vongole veraci e prezzemolo fresco" },
+                    { img: "https://images.unsplash.com/photo-1599084993091-1cb5c0721cc6?q=80&w=800", title: "Fritto Misto", desc: "Gamberi, calamari e verdure croccanti" },
+                    { img: "https://images.unsplash.com/photo-1534939561126-855b8675edd7?q=80&w=800", title: "Grigliata Reale", desc: "Pescato del giorno alla brace" }
+                ]
+            },
+            meat: {
+                bg: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=2070&auto=format&fit=crop",
+                accent: "Eccellenza nella frollatura",
+                chef: "https://images.unsplash.com/photo-1595295333158-4742f28fbd85?q=80&w=800&auto=format&fit=crop",
+                dishes: [
+                    { img: "https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=800", title: "Bistecca Fiorentina", desc: "Taglio pregiato, cottura al sangue" },
+                    { img: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?q=80&w=800", title: "Tagliata Rucola e Grana", desc: "Manzo tenerissimo servito caldo" },
+                    { img: "https://images.unsplash.com/photo-1547496502-ffa76f35cea5?q=80&w=800", title: "Burger Gourmet", desc: "Carne selezionata e salse fatte in casa" }
+                ]
+            },
+            sushi: {
+                bg: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=2070&auto=format&fit=crop",
+                accent: "Arte giapponese e fusione",
+                chef: "https://images.unsplash.com/photo-1556910103-1c02745a30bf?q=80&w=800&auto=format&fit=crop",
+                dishes: [
+                    { img: "https://images.unsplash.com/photo-1553621042-f6e147245754?q=80&w=800", title: "Sashimi Mix", desc: "Tagli pregiati di salmone e tonno" },
+                    { img: "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?q=80&w=800", title: "Uramaki Special", desc: "Gambero in tempura e avocado" },
+                    { img: "https://images.unsplash.com/photo-1611143669185-af224c5e3252?q=80&w=800", title: "Nigiri Selection", desc: "Riso perfetto e pesce freschissimo" }
+                ]
+            },
+            traditional: {
+                bg: "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=2070&auto=format&fit=crop",
+                accent: "Cucina come una volta",
+                chef: "https://images.unsplash.com/photo-1577106263724-2c8e03bfe9cf?q=80&w=800&auto=format&fit=crop",
+                dishes: [
+                    { img: "https://images.unsplash.com/photo-1626844131082-256783844137?q=80&w=800", title: "Tagliatelle al Ragù", desc: "Pasta fresca tirata a mano" },
+                    { img: "https://images.unsplash.com/photo-1608835291093-394b0c943a75?q=80&w=800", title: "Tortellini in Brodo", desc: "La vera tradizione emiliana" },
+                    { img: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?q=80&w=800", title: "Dolci della Casa", desc: "Tiramisù e Zuppa Inglese" }
+                ]
+            },
+            generic: {
+                bg: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop",
+                accent: "Gusto ed eleganza",
+                chef: "https://images.unsplash.com/photo-1581299894007-aaa5029791bd?q=80&w=800&auto=format&fit=crop",
+                dishes: [
+                    { img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800", title: "Antipasto della Casa", desc: "Selezione di salumi e formaggi" },
+                    { img: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=800", title: "Primi Piatti", desc: "Pasta fresca e risotti" },
+                    { img: "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?q=80&w=800", title: "Secondi Piatti", desc: "Carne e pesce di qualità" }
+                ]
+            }
+        };
+
+        // --- EXECUTION LOGIC ---
         document.addEventListener("DOMContentLoaded", function() {
             const params = new URLSearchParams(window.location.search);
             
-            // 1. Get Parameters (Defaults provided if link is empty)
+            // 1. Get Parameters
             let businessName = params.get('name') || "Il Tuo Ristorante";
             let cityName = params.get('city') || "Italia";
+            let type = params.get('type') || 'generic';
+            let tagline = params.get('tag');
 
-            // 2. Clean Text (Capitalize Words)
+            // 2. Clean Text
             const capitalize = (str) => str.replace(/\b\w/g, l => l.toUpperCase());
             businessName = capitalize(businessName);
             cityName = capitalize(cityName);
 
-            // 3. Update Title
-            document.title = `Anteprima: ${businessName}`;
-
-            // 4. Inject into HTML (Classes: dynamic-name, dynamic-city)
+            // 3. Update Text Content
+            document.title = `${businessName} - Anteprima`;
             document.querySelectorAll('.dynamic-name').forEach(el => el.textContent = businessName);
             document.querySelectorAll('.dynamic-city').forEach(el => el.textContent = cityName);
+
+            // 4. Select Theme
+            const theme = themes[type] || themes['generic'];
+
+            // 5. Apply Theme Assets
+            
+            // Hero Background
+            document.getElementById('home').style.backgroundImage = `url('${theme.bg}')`;
+            
+            // Tagline (Priority: URL Param -> Theme Default)
+            const taglineEl = document.getElementById('hero-tagline');
+            if (tagline) {
+                taglineEl.textContent = decodeURIComponent(tagline);
+            } else {
+                taglineEl.textContent = theme.accent;
+            }
+
+            // Chef Image
+            document.getElementById('chef-img').src = theme.chef;
+
+            // Dishes (Loop through 3 cards)
+            for (let i = 0; i < 3; i++) {
+                if (theme.dishes[i]) {
+                    document.getElementById(`dish-img-${i+1}`).src = theme.dishes[i].img;
+                    document.getElementById(`dish-title-${i+1}`).textContent = theme.dishes[i].title;
+                    document.getElementById(`dish-desc-${i+1}`).textContent = theme.dishes[i].desc;
+                }
+            }
         });
 
-        // --- MODAL LOGIC ---
+        // --- MODAL CONTROLS ---
         function openSalesModal() {
-            const modal = document.getElementById('sales-modal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
+            document.getElementById('sales-modal').classList.remove('hidden');
+            document.getElementById('sales-modal').classList.add('flex');
         }
-
         function closeSalesModal() {
-            const modal = document.getElementById('sales-modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
+            document.getElementById('sales-modal').classList.add('hidden');
+            document.getElementById('sales-modal').classList.remove('flex');
         }
     </script>
 </body>
