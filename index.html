@@ -204,14 +204,14 @@
                 </p>
             </div>
             <div class="flex items-center gap-3">
-                <a href="https://wa.me/393240779550?text=Ciao,%20ho%20visto%20la%20demo%20del%20sito%20web%20e%20vorrei%20saperne%20di%20più." target="_blank" class="bg-blue-600 text-white px-5 py-2 rounded-lg text-sm font-bold hover:bg-blue-700 transition shadow-lg flex items-center gap-2">
+                <a href="https://wa.me/391234567890?text=Ciao,%20ho%20visto%20la%20demo%20del%20sito%20web%20e%20vorrei%20saperne%20di%20più." target="_blank" class="bg-blue-600 text-white px-5 py-2 rounded-lg text-sm font-bold hover:bg-blue-700 transition shadow-lg flex items-center gap-2">
                     <i class="fab fa-whatsapp"></i> Si, parliamone
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- MODAL -->
+    <!-- MODAL (RESTORED SALES PITCH) -->
     <div id="sales-modal" class="fixed inset-0 z-[110] bg-black/80 hidden items-center justify-center p-4 backdrop-blur-sm">
         <div class="bg-white rounded-2xl max-w-md w-full p-8 relative shadow-2xl transform scale-100 transition-all">
             <button onclick="closeSalesModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
@@ -223,6 +223,17 @@
                 </div>
                 <h3 class="text-2xl font-bold text-gray-900 mb-2">Funzionalità Demo</h3>
                 <p class="text-gray-600 mb-6">In un sito reale, questo pulsante gestirebbe le prenotazioni automaticamente.</p>
+                
+                <!-- RESTORED: THE SALES PITCH -->
+                <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 mb-6 text-left">
+                    <p class="font-bold text-gray-800 text-sm mb-2">Perché questo sito vende di più?</p>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Caricamento istantaneo</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Foto ad alta qualità</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Ottimizzato per Google (SEO)</li>
+                    </ul>
+                </div>
+
                 <a href="https://wa.me/391234567890?text=Ciao,%20voglio%20attivare%20il%20mio%20sito." class="block w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition">
                     Attiva questo sito per <span class="dynamic-name">...</span>
                 </a>
@@ -326,7 +337,7 @@
             // Hero Background
             document.getElementById('home').style.backgroundImage = `url('${theme.bg}')`;
             
-            // Tagline (Priority: URL Param -> Theme Default)
+            // Tagline
             const taglineEl = document.getElementById('hero-tagline');
             if (tagline) {
                 taglineEl.textContent = decodeURIComponent(tagline);
