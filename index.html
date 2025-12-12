@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Anteprima Sito Web</title>
-
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%23D4AF37%22><path d=%22M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z%22/></svg>" type="image/svg+xml">
     
-    <!-- Fonts: Playfair Display (Luxury) & Lato (Clean) -->
+    <!-- FAVICON -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%23D4AF37%22><path d=%22M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z%22/></svg>" type="image/svg+xml">
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -15,7 +16,7 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Animations Library (AOS) -->
+    <!-- Animations -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
@@ -55,6 +56,16 @@
             position: relative;
         }
 
+        /* 
+           FIX FOR MOBILE JUMPING: 
+           Use '100svh' (Small Viewport Height) instead of 100vh.
+           This ignores the address bar showing/hiding.
+        */
+        .hero-section-height {
+            height: 100vh; /* Fallback */
+            height: 100svh; /* The Fix */
+        }
+
         .hero-bg-container {
             background-size: cover;
             background-position: center;
@@ -63,6 +74,7 @@
             width: 100%;
         }
         
+        /* Disable parallax on mobile to prevent jitter */
         @media (hover: none) {
             .hero-bg-container { background-attachment: scroll; }
         }
@@ -92,7 +104,6 @@
     <!-- === PREMIUM LOADER SCREEN === -->
     <div id="loader" class="fixed inset-0 bg-dark-900 z-[999] flex flex-col justify-center items-center text-center px-4 w-full h-full">
         <div class="relative">
-            <!-- Pulsing Circles -->
             <div class="absolute inset-0 bg-gold-500 rounded-full animate-ping opacity-20"></div>
             <div class="w-16 h-16 border-4 border-gold-500 border-t-transparent rounded-full animate-spin relative z-10"></div>
         </div>
@@ -104,13 +115,26 @@
         </p>
     </div>
 
-    <!-- NAVIGATION -->
+    <!-- NAVIGATION (REDESIGNED) -->
     <nav class="fixed w-full z-50 transition-all duration-300 bg-dark-900/95 backdrop-blur-md border-b border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
-                <div class="flex-shrink-0 flex items-center">
-                    <span class="font-serif text-xl md:text-2xl font-bold text-white tracking-wider dynamic-name truncate max-w-[200px] md:max-w-none block">Ristorante</span>
+                
+                <!-- NEW LOGO LAYOUT -->
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <!-- The Gold Icon Container -->
+                    <div class="w-10 h-10 rounded-full border border-gold-500/50 bg-black/50 flex items-center justify-center shadow-[0_0_15px_rgba(212,175,55,0.2)]">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#D4AF37" class="w-6 h-6">
+                            <path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/>
+                        </svg>
+                    </div>
+                    <!-- The Name (Truncated on mobile) -->
+                    <span class="font-serif text-lg md:text-xl font-bold text-white tracking-wider dynamic-name truncate max-w-[180px] md:max-w-none">
+                        Ristorante
+                    </span>
                 </div>
+
+                <!-- Desktop Menu -->
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
                         <a href="#home" class="hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition">Home</a>
@@ -119,6 +143,8 @@
                         <a href="#contact" onclick="openSalesModal()" class="bg-gold-500 text-black hover:bg-gold-400 px-6 py-2 rounded-full text-sm font-bold transition transform hover:scale-105">Prenota</a>
                     </div>
                 </div>
+
+                <!-- Mobile Menu Button -->
                 <div class="md:hidden">
                     <button onclick="toggleMobileMenu()" class="text-white hover:text-gold-400 focus:outline-none p-2">
                         <i class="fas fa-bars text-2xl"></i>
@@ -126,18 +152,20 @@
                 </div>
             </div>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-dark-900 border-b border-white/10 w-full">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
-                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium hover:text-gold-400">Home</a>
-                <a href="#menu" class="block px-3 py-2 rounded-md text-base font-medium hover:text-gold-400">Menu</a>
-                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium hover:text-gold-400">Chi Siamo</a>
-                <a href="#contact" onclick="openSalesModal()" class="block px-3 py-2 mt-4 bg-gold-500 text-black font-bold rounded-full">Prenota Tavolo</a>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-dark-900 border-b border-white/10 w-full shadow-2xl">
+            <div class="px-2 pt-2 pb-4 space-y-1 sm:px-3 text-center">
+                <a href="#home" class="block px-3 py-3 rounded-md text-base font-medium hover:text-gold-400 border-b border-white/5">Home</a>
+                <a href="#menu" class="block px-3 py-3 rounded-md text-base font-medium hover:text-gold-400 border-b border-white/5">Menu</a>
+                <a href="#about" class="block px-3 py-3 rounded-md text-base font-medium hover:text-gold-400 border-b border-white/5">Chi Siamo</a>
+                <a href="#contact" onclick="openSalesModal()" class="block px-3 py-3 mt-4 bg-gold-500 text-black font-bold rounded-full mx-4 shadow-lg shadow-gold-500/20">Prenota Tavolo</a>
             </div>
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
-    <div id="home" class="relative h-screen flex items-center justify-center hero-bg-container w-full overflow-hidden">
+    <!-- HERO SECTION (Updated with hero-section-height class) -->
+    <div id="home" class="relative hero-section-height flex items-center justify-center hero-bg-container w-full overflow-hidden">
         <div class="absolute inset-0 hero-overlay"></div>
         <div class="relative text-center px-4 max-w-5xl mx-auto z-10 w-full" data-aos="fade-up" data-aos-duration="1000">
             <p id="hero-tagline" class="text-gold-400 font-bold tracking-[0.2em] uppercase text-xs md:text-base mb-4">Eccellenza Culinaria</p>
@@ -194,9 +222,7 @@
 
     <!-- SOCIAL PROOF -->
     <section class="py-16 md:py-20 bg-dark-800 border-t border-white/5 relative overflow-hidden w-full">
-        <!-- Decoration fixed to be inside container -->
         <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-gold-500/5 rounded-full blur-3xl pointer-events-none"></div>
-        
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-12" data-aos="fade-up">
                 <p class="text-gold-400 uppercase tracking-widest text-sm font-bold mb-2">Cosa dicono di noi</p>
@@ -232,6 +258,16 @@
     <!-- FOOTER -->
     <footer class="bg-black py-12 border-t border-gray-800 pb-32 md:pb-24 w-full">
         <div class="max-w-7xl mx-auto px-4 text-center">
+            
+            <!-- FOOTER LOGO (ADDED) -->
+            <div class="flex justify-center mb-6">
+                <div class="w-12 h-12 rounded-full border border-gold-500/30 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#D4AF37" class="w-6 h-6">
+                        <path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/>
+                    </svg>
+                </div>
+            </div>
+            
             <h2 class="text-3xl font-serif font-bold text-white mb-6 dynamic-name">Ristorante</h2>
             <div class="flex justify-center space-x-6 mb-8 text-gray-400">
                 <i class="fab fa-instagram text-2xl hover:text-gold-400 cursor-pointer"></i>
