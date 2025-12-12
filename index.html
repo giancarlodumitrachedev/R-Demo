@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="it" class="scroll-smooth">
+<html lang="it" class="scroll-smooth overflow-x-hidden">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Anteprima Sito Web</title>
     
     <!-- Fonts: Playfair Display (Luxury) & Lato (Clean) -->
@@ -46,11 +46,19 @@
     </script>
     
     <style>
+        /* NUCLEAR FIX FOR HORIZONTAL SCROLL */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+            position: relative;
+        }
+
         .hero-bg-container {
             background-size: cover;
             background-position: center;
             background-attachment: fixed; 
             transition: background-image 0.5s ease-in-out;
+            width: 100%;
         }
         
         @media (hover: none) {
@@ -77,10 +85,10 @@
         }
     </style>
 </head>
-<body class="bg-dark-900 text-gray-100 font-sans antialiased overflow-x-hidden">
+<body class="bg-dark-900 text-gray-100 font-sans antialiased overflow-x-hidden w-full">
 
     <!-- === PREMIUM LOADER SCREEN === -->
-    <div id="loader" class="fixed inset-0 bg-dark-900 z-[999] flex flex-col justify-center items-center text-center px-4">
+    <div id="loader" class="fixed inset-0 bg-dark-900 z-[999] flex flex-col justify-center items-center text-center px-4 w-full h-full">
         <div class="relative">
             <!-- Pulsing Circles -->
             <div class="absolute inset-0 bg-gold-500 rounded-full animate-ping opacity-20"></div>
@@ -93,13 +101,12 @@
             Personalizzazione in corso
         </p>
     </div>
-    <!-- ============================= -->
 
     <!-- NAVIGATION -->
     <nav class="fixed w-full z-50 transition-all duration-300 bg-dark-900/95 backdrop-blur-md border-b border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
-                <div class="flex-shrink-0">
+                <div class="flex-shrink-0 flex items-center">
                     <span class="font-serif text-xl md:text-2xl font-bold text-white tracking-wider dynamic-name truncate max-w-[200px] md:max-w-none block">Ristorante</span>
                 </div>
                 <div class="hidden md:block">
@@ -111,13 +118,13 @@
                     </div>
                 </div>
                 <div class="md:hidden">
-                    <button onclick="toggleMobileMenu()" class="text-white hover:text-gold-400 focus:outline-none">
+                    <button onclick="toggleMobileMenu()" class="text-white hover:text-gold-400 focus:outline-none p-2">
                         <i class="fas fa-bars text-2xl"></i>
                     </button>
                 </div>
             </div>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-dark-900 border-b border-white/10">
+        <div id="mobile-menu" class="hidden md:hidden bg-dark-900 border-b border-white/10 w-full">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
                 <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium hover:text-gold-400">Home</a>
                 <a href="#menu" class="block px-3 py-2 rounded-md text-base font-medium hover:text-gold-400">Menu</a>
@@ -128,11 +135,11 @@
     </nav>
 
     <!-- HERO SECTION -->
-    <div id="home" class="relative h-screen flex items-center justify-center hero-bg-container">
+    <div id="home" class="relative h-screen flex items-center justify-center hero-bg-container w-full overflow-hidden">
         <div class="absolute inset-0 hero-overlay"></div>
-        <div class="relative text-center px-4 max-w-5xl mx-auto z-10" data-aos="fade-up" data-aos-duration="1000">
+        <div class="relative text-center px-4 max-w-5xl mx-auto z-10 w-full" data-aos="fade-up" data-aos-duration="1000">
             <p id="hero-tagline" class="text-gold-400 font-bold tracking-[0.2em] uppercase text-xs md:text-base mb-4">Eccellenza Culinaria</p>
-            <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white mb-6 dynamic-name leading-tight drop-shadow-lg">Nome Ristorante</h1>
+            <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white mb-6 dynamic-name leading-tight drop-shadow-lg break-words">Nome Ristorante</h1>
             <p class="text-lg md:text-2xl text-gray-300 font-light mb-10 max-w-2xl mx-auto">L'esperienza definitiva a <span class="text-white font-medium border-b-2 border-gold-500 dynamic-city">Città</span></p>
             <div class="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
                 <button onclick="openSalesModal()" class="w-full sm:w-auto px-8 py-4 bg-gold-500 text-dark-900 font-bold rounded-full hover:bg-white transition duration-300">Prenota un Tavolo</button>
@@ -142,7 +149,7 @@
     </div>
 
     <!-- ABOUT SECTION -->
-    <section id="about" class="py-16 md:py-24 bg-dark-800">
+    <section id="about" class="py-16 md:py-24 bg-dark-800 w-full overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <div data-aos="fade-right" class="order-2 md:order-1">
@@ -160,7 +167,7 @@
     </section>
 
     <!-- MENU PREVIEW -->
-    <section id="menu" class="py-16 md:py-24 bg-dark-900 relative">
+    <section id="menu" class="py-16 md:py-24 bg-dark-900 relative w-full overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16" data-aos="fade-up">
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4">I Nostri Classici</h2>
@@ -184,8 +191,10 @@
     </section>
 
     <!-- SOCIAL PROOF -->
-    <section class="py-16 md:py-20 bg-dark-800 border-t border-white/5 relative overflow-hidden">
-        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-gold-500/5 rounded-full blur-3xl"></div>
+    <section class="py-16 md:py-20 bg-dark-800 border-t border-white/5 relative overflow-hidden w-full">
+        <!-- Decoration fixed to be inside container -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-gold-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-12" data-aos="fade-up">
                 <p class="text-gold-400 uppercase tracking-widest text-sm font-bold mb-2">Cosa dicono di noi</p>
@@ -210,7 +219,7 @@
     </section>
 
     <!-- DYNAMIC MAP -->
-    <section class="relative w-full h-[300px] md:h-[400px] bg-dark-900 border-t border-white/10">
+    <section class="relative w-full h-[300px] md:h-[400px] bg-dark-900 border-t border-white/10 w-full overflow-hidden">
         <iframe id="dynamic-map" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" loading="lazy" class="map-filter"></iframe>
         <div class="absolute top-4 right-4 bg-white/90 backdrop-blur text-black px-4 py-2 rounded shadow-lg pointer-events-none max-w-[200px] text-right">
             <p class="text-xs font-bold uppercase tracking-wider">Dove siamo</p>
@@ -219,7 +228,7 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="bg-black py-12 border-t border-gray-800 pb-32 md:pb-24">
+    <footer class="bg-black py-12 border-t border-gray-800 pb-32 md:pb-24 w-full">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <h2 class="text-3xl font-serif font-bold text-white mb-6 dynamic-name">Ristorante</h2>
             <div class="flex justify-center space-x-6 mb-8 text-gray-400">
