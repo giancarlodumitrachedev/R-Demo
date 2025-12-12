@@ -49,14 +49,21 @@
         .hero-bg-container {
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* Parallax Effect */
+            background-attachment: fixed; /* Parallax Effect for Desktop */
             transition: background-image 0.5s ease-in-out;
         }
-        /* Gradient overlay for readability */
+        
+        /* MOBILE OPTIMIZATION: Disable fixed background on phones to prevent jitter */
+        @media (hover: none) {
+            .hero-bg-container {
+                background-attachment: scroll;
+            }
+        }
+
         .hero-overlay {
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
         }
-        /* Map styling: Grayscale to fit theme, Color on hover */
+        
         .map-filter {
             filter: grayscale(100%) invert(90%) contrast(85%);
             transition: filter 0.5s ease;
@@ -69,12 +76,15 @@
 <body class="bg-dark-900 text-gray-100 font-sans antialiased overflow-x-hidden">
 
     <!-- NAVIGATION -->
-    <nav class="fixed w-full z-50 transition-all duration-300 bg-dark-900/90 backdrop-blur-md border-b border-white/10">
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-dark-900/95 backdrop-blur-md border-b border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
                 <div class="flex-shrink-0">
-                    <span class="font-serif text-2xl font-bold text-white tracking-wider dynamic-name">Ristorante</span>
+                    <span class="font-serif text-xl md:text-2xl font-bold text-white tracking-wider dynamic-name truncate max-w-[200px] md:max-w-none block">Ristorante</span>
                 </div>
+                
+                <!-- Desktop Menu -->
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
                         <a href="#home" class="hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition">Home</a>
@@ -83,6 +93,23 @@
                         <a href="#contact" onclick="openSalesModal()" class="bg-gold-500 text-black hover:bg-gold-400 px-6 py-2 rounded-full text-sm font-bold transition transform hover:scale-105">Prenota</a>
                     </div>
                 </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button onclick="toggleMobileMenu()" class="text-white hover:text-gold-400 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-dark-900 border-b border-white/10">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium hover:text-gold-400">Home</a>
+                <a href="#menu" class="block px-3 py-2 rounded-md text-base font-medium hover:text-gold-400">Menu</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium hover:text-gold-400">Chi Siamo</a>
+                <a href="#contact" onclick="openSalesModal()" class="block px-3 py-2 mt-4 bg-gold-500 text-black font-bold rounded-full">Prenota Tavolo</a>
             </div>
         </div>
     </nav>
@@ -92,23 +119,24 @@
         <div class="absolute inset-0 hero-overlay"></div>
         <div class="relative text-center px-4 max-w-5xl mx-auto z-10" data-aos="fade-up" data-aos-duration="1000">
             <!-- Dynamic Tagline -->
-            <p id="hero-tagline" class="text-gold-400 font-bold tracking-[0.2em] uppercase text-sm md:text-base mb-4">
+            <p id="hero-tagline" class="text-gold-400 font-bold tracking-[0.2em] uppercase text-xs md:text-base mb-4">
                 Eccellenza Culinaria
             </p>
             
-            <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white mb-6 dynamic-name leading-tight">
+            <!-- Responsive Title Size -->
+            <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white mb-6 dynamic-name leading-tight drop-shadow-lg">
                 Nome Ristorante
             </h1>
             
-            <p class="text-xl md:text-2xl text-gray-300 font-light mb-10">
+            <p class="text-lg md:text-2xl text-gray-300 font-light mb-10 max-w-2xl mx-auto">
                 L'esperienza definitiva a <span class="text-white font-medium border-b-2 border-gold-500 dynamic-city">Città</span>
             </p>
             
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <button onclick="openSalesModal()" class="px-8 py-4 bg-gold-500 text-dark-900 font-bold rounded-full hover:bg-white transition duration-300">
+            <div class="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
+                <button onclick="openSalesModal()" class="w-full sm:w-auto px-8 py-4 bg-gold-500 text-dark-900 font-bold rounded-full hover:bg-white transition duration-300">
                     Prenota un Tavolo
                 </button>
-                <button onclick="openSalesModal()" class="px-8 py-4 border border-white text-white font-bold rounded-full hover:bg-white hover:text-dark-900 transition duration-300">
+                <button onclick="openSalesModal()" class="w-full sm:w-auto px-8 py-4 border border-white text-white font-bold rounded-full hover:bg-white hover:text-dark-900 transition duration-300">
                     Scopri il Menu
                 </button>
             </div>
@@ -116,21 +144,21 @@
     </div>
 
     <!-- ABOUT SECTION -->
-    <section id="about" class="py-24 bg-dark-800">
+    <section id="about" class="py-16 md:py-24 bg-dark-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div data-aos="fade-right">
+                <div data-aos="fade-right" class="order-2 md:order-1">
                     <!-- Dynamic Chef Image -->
-                    <img id="chef-img" src="" alt="Chef" class="rounded-lg shadow-2xl shadow-gold-500/20 grayscale hover:grayscale-0 transition duration-700 w-full object-cover h-[500px]">
+                    <img id="chef-img" src="" alt="Chef" class="rounded-lg shadow-2xl shadow-gold-500/20 grayscale hover:grayscale-0 transition duration-700 w-full object-cover h-[350px] md:h-[500px]">
                 </div>
-                <div data-aos="fade-left">
-                    <h3 class="text-gold-400 font-bold uppercase tracking-widest mb-2">La Nostra Filosofia</h3>
-                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-white mb-6">Amore per il territorio</h2>
-                    <p class="text-gray-400 text-lg leading-relaxed mb-6">
+                <div data-aos="fade-left" class="order-1 md:order-2">
+                    <h3 class="text-gold-400 font-bold uppercase tracking-widest mb-2 text-sm">La Nostra Filosofia</h3>
+                    <h2 class="text-3xl md:text-5xl font-serif font-bold text-white mb-6">Amore per il territorio</h2>
+                    <p class="text-gray-400 text-base md:text-lg leading-relaxed mb-6">
                         Benvenuti da <span class="dynamic-name font-bold text-white">...</span>. La nostra cucina nasce dalla passione per le materie prime semplici e genuine.
                     </p>
-                    <p class="text-gray-400 text-lg leading-relaxed mb-8">
-                        Situati a <span class="dynamic-city font-bold text-white">...</span>, offriamo un'atmosfera unica dove ogni dettaglio è curato per farvi sentire a casa, ma con un tocco di eleganza.
+                    <p class="text-gray-400 text-base md:text-lg leading-relaxed mb-8">
+                        Situati a <span class="dynamic-city font-bold text-white">...</span>, offriamo un'atmosfera unica dove ogni dettaglio è curato per farvi sentire a casa.
                     </p>
                     <div class="flex items-center gap-4">
                         <div class="h-px w-12 bg-gold-500"></div>
@@ -142,43 +170,43 @@
     </section>
 
     <!-- MENU PREVIEW (Dynamic Cards) -->
-    <section id="menu" class="py-24 bg-dark-900 relative">
+    <section id="menu" class="py-16 md:py-24 bg-dark-900 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl font-serif font-bold text-white mb-4">I Nostri Classici</h2>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4">I Nostri Classici</h2>
                 <div class="h-1 w-24 bg-gold-500 mx-auto"></div>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                 <!-- Card 1 -->
-                <div class="group relative overflow-hidden rounded-xl bg-dark-800" data-aos="fade-up" data-aos-delay="100">
+                <div class="group relative overflow-hidden rounded-xl bg-dark-800 shadow-lg" data-aos="fade-up" data-aos-delay="100">
                     <div class="aspect-w-4 aspect-h-3 h-64 overflow-hidden">
                         <img id="dish-img-1" src="" class="object-cover w-full h-full transition duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100">
                     </div>
                     <div class="p-6">
-                        <h3 id="dish-title-1" class="text-2xl font-serif font-bold text-white mb-2">Piatto 1</h3>
+                        <h3 id="dish-title-1" class="text-xl md:text-2xl font-serif font-bold text-white mb-2">Piatto 1</h3>
                         <p id="dish-desc-1" class="text-gray-400 text-sm">Descrizione del piatto...</p>
                     </div>
                 </div>
 
                 <!-- Card 2 -->
-                <div class="group relative overflow-hidden rounded-xl bg-dark-800" data-aos="fade-up" data-aos-delay="200">
+                <div class="group relative overflow-hidden rounded-xl bg-dark-800 shadow-lg" data-aos="fade-up" data-aos-delay="200">
                     <div class="aspect-w-4 aspect-h-3 h-64 overflow-hidden">
                         <img id="dish-img-2" src="" class="object-cover w-full h-full transition duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100">
                     </div>
                     <div class="p-6">
-                        <h3 id="dish-title-2" class="text-2xl font-serif font-bold text-white mb-2">Piatto 2</h3>
+                        <h3 id="dish-title-2" class="text-xl md:text-2xl font-serif font-bold text-white mb-2">Piatto 2</h3>
                         <p id="dish-desc-2" class="text-gray-400 text-sm">Descrizione del piatto...</p>
                     </div>
                 </div>
 
                 <!-- Card 3 -->
-                <div class="group relative overflow-hidden rounded-xl bg-dark-800" data-aos="fade-up" data-aos-delay="300">
+                <div class="group relative overflow-hidden rounded-xl bg-dark-800 shadow-lg" data-aos="fade-up" data-aos-delay="300">
                     <div class="aspect-w-4 aspect-h-3 h-64 overflow-hidden">
                         <img id="dish-img-3" src="" class="object-cover w-full h-full transition duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100">
                     </div>
                     <div class="p-6">
-                        <h3 id="dish-title-3" class="text-2xl font-serif font-bold text-white mb-2">Piatto 3</h3>
+                        <h3 id="dish-title-3" class="text-xl md:text-2xl font-serif font-bold text-white mb-2">Piatto 3</h3>
                         <p id="dish-desc-3" class="text-gray-400 text-sm">Descrizione del piatto...</p>
                     </div>
                 </div>
@@ -186,15 +214,15 @@
         </div>
     </section>
 
-    <!-- NEW FEATURE: SOCIAL PROOF (REVIEWS) -->
-    <section class="py-20 bg-dark-800 border-t border-white/5 relative overflow-hidden">
+    <!-- SOCIAL PROOF (REVIEWS) -->
+    <section class="py-16 md:py-20 bg-dark-800 border-t border-white/5 relative overflow-hidden">
         <!-- Decoration -->
         <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-gold-500/5 rounded-full blur-3xl"></div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-12" data-aos="fade-up">
                 <p class="text-gold-400 uppercase tracking-widest text-sm font-bold mb-2">Cosa dicono di noi</p>
-                <h2 class="text-3xl font-serif font-bold text-white">Le Recensioni dei Clienti</h2>
+                <h2 class="text-3xl font-serif font-bold text-white">Le Recensioni</h2>
                 <div class="mt-4 flex justify-center text-gold-500 space-x-1">
                     <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                 </div>
@@ -202,7 +230,7 @@
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Review 1 -->
-                <div class="bg-dark-900 p-8 rounded-xl border border-white/5" data-aos="fade-up" data-aos-delay="100">
+                <div class="bg-dark-900 p-6 md:p-8 rounded-xl border border-white/5" data-aos="fade-up" data-aos-delay="100">
                     <div class="flex items-center mb-4">
                         <div class="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center text-white font-bold">M</div>
                         <div class="ml-3">
@@ -210,11 +238,11 @@
                             <p class="text-gold-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>
                         </div>
                     </div>
-                    <p class="text-gray-400 italic">"Una scoperta incredibile. <span class="dynamic-name font-bold text-white">...</span> è senza dubbio il miglior posto dove mangiare a <span class="dynamic-city text-white">...</span>. Tornerò sicuramente!"</p>
+                    <p class="text-gray-400 italic text-sm md:text-base">"Una scoperta incredibile. <span class="dynamic-name font-bold text-white">...</span> è senza dubbio il miglior posto dove mangiare a <span class="dynamic-city text-white">...</span>."</p>
                 </div>
                 
                 <!-- Review 2 -->
-                <div class="bg-dark-900 p-8 rounded-xl border border-white/5" data-aos="fade-up" data-aos-delay="200">
+                <div class="bg-dark-900 p-6 md:p-8 rounded-xl border border-white/5" data-aos="fade-up" data-aos-delay="200">
                     <div class="flex items-center mb-4">
                         <div class="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center text-white font-bold">G</div>
                         <div class="ml-3">
@@ -222,11 +250,11 @@
                             <p class="text-gold-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>
                         </div>
                     </div>
-                    <p class="text-gray-400 italic">"Atmosfera magica e cibo delizioso. Il personale è gentilissimo e la qualità degli ingredienti è superiore. Consigliatissimo!"</p>
+                    <p class="text-gray-400 italic text-sm md:text-base">"Atmosfera magica e cibo delizioso. Il personale è gentilissimo e la qualità degli ingredienti è superiore."</p>
                 </div>
                 
                 <!-- Review 3 -->
-                <div class="bg-dark-900 p-8 rounded-xl border border-white/5" data-aos="fade-up" data-aos-delay="300">
+                <div class="bg-dark-900 p-6 md:p-8 rounded-xl border border-white/5" data-aos="fade-up" data-aos-delay="300">
                     <div class="flex items-center mb-4">
                         <div class="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center text-white font-bold">L</div>
                         <div class="ml-3">
@@ -234,26 +262,25 @@
                             <p class="text-gold-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></p>
                         </div>
                     </div>
-                    <p class="text-gray-400 italic">"Cercavo un posto speciale a <span class="dynamic-city text-white">...</span> e l'ho trovato. Piatti curati nei minimi dettagli e sapori autentici."</p>
+                    <p class="text-gray-400 italic text-sm md:text-base">"Cercavo un posto speciale a <span class="dynamic-city text-white">...</span> e l'ho trovato. Piatti curati e sapori autentici."</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- NEW FEATURE: DYNAMIC MAP -->
-    <section class="relative w-full h-[400px] bg-dark-900 border-t border-white/10">
-        <!-- The ID 'dynamic-map' is targeted by JS to inject the City -->
+    <!-- DYNAMIC MAP -->
+    <section class="relative w-full h-[300px] md:h-[400px] bg-dark-900 border-t border-white/10">
         <iframe id="dynamic-map" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" loading="lazy" class="map-filter"></iframe>
         
-        <!-- Overlay Label (MOVED TO TOP RIGHT) -->
-        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur text-black px-4 py-2 rounded shadow-lg pointer-events-none">
+        <!-- Overlay Label (Top Right) -->
+        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur text-black px-4 py-2 rounded shadow-lg pointer-events-none max-w-[200px] text-right">
             <p class="text-xs font-bold uppercase tracking-wider">Dove siamo</p>
-            <p class="text-lg font-serif font-bold dynamic-city">...</p>
+            <p class="text-sm md:text-lg font-serif font-bold dynamic-city truncate">...</p>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="bg-black py-12 border-t border-gray-800 pb-24">
+    <footer class="bg-black py-12 border-t border-gray-800 pb-32 md:pb-24">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <h2 class="text-3xl font-serif font-bold text-white mb-6 dynamic-name">Ristorante</h2>
             <div class="flex justify-center space-x-6 mb-8 text-gray-400">
@@ -265,46 +292,52 @@
         </div>
     </footer>
 
-    <!-- AGENCY SALES HOOK -->
+    <!-- AGENCY SALES HOOK (Responsive) -->
     <div class="fixed bottom-0 left-0 w-full bg-white z-[100] shadow-[0_-4px_20px_rgba(0,0,0,0.2)] transform transition-transform duration-500" id="agency-bar">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-                <div class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide flex items-center gap-2">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+            
+            <!-- Left Side (Hidden on very small screens to save space) -->
+            <div class="flex items-center gap-3 overflow-hidden">
+                <div class="bg-green-100 text-green-700 px-2 md:px-3 py-1 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-wide flex-shrink-0 flex items-center gap-2">
                     <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                    Live Demo
+                    <span class="hidden md:inline">Live Demo</span>
+                    <span class="md:hidden">Demo</span>
                 </div>
-                <p class="text-gray-800 text-sm font-medium">
-                    Ciao <span class="dynamic-name font-bold text-black">Proprietario</span>! Ecco una bozza del tuo nuovo sito.
+                <!-- Text Hidden on Mobile, Visible on Desktop -->
+                <p class="text-gray-800 text-sm font-medium hidden md:block truncate">
+                    Ciao <span class="dynamic-name font-bold text-black">Proprietario</span>! Ecco una bozza.
                 </p>
             </div>
-            <div class="flex items-center gap-3">
-                <a href="https://wa.me/391234567890?text=Ciao,%20ho%20visto%20la%20demo%20del%20sito%20web%20e%20vorrei%20saperne%20di%20più." target="_blank" class="bg-blue-600 text-white px-5 py-2 rounded-lg text-sm font-bold hover:bg-blue-700 transition shadow-lg flex items-center gap-2">
-                    <i class="fab fa-whatsapp"></i> Si, parliamone
+
+            <!-- Right Side (CTA) -->
+            <div class="flex items-center gap-3 flex-shrink-0">
+                <a href="https://wa.me/391234567890?text=Ciao,%20ho%20visto%20la%20demo%20del%20sito%20web%20e%20vorrei%20saperne%20di%20più." target="_blank" class="bg-blue-600 text-white px-4 md:px-5 py-2 rounded-lg text-sm font-bold hover:bg-blue-700 transition shadow-lg flex items-center gap-2 whitespace-nowrap">
+                    <i class="fab fa-whatsapp text-lg"></i> 
+                    <span>Parliamone</span>
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- MODAL (RESTORED SALES PITCH) -->
+    <!-- MODAL -->
     <div id="sales-modal" class="fixed inset-0 z-[110] bg-black/80 hidden items-center justify-center p-4 backdrop-blur-sm">
-        <div class="bg-white rounded-2xl max-w-md w-full p-8 relative shadow-2xl transform scale-100 transition-all">
-            <button onclick="closeSalesModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
-                <i class="fas fa-times text-xl"></i>
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 md:p-8 relative shadow-2xl transform scale-100 transition-all m-4">
+            <button onclick="closeSalesModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 bg-gray-100 rounded-full w-8 h-8 flex items-center justify-center">
+                <i class="fas fa-times"></i>
             </button>
             <div class="text-center">
-                <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl">
+                <div class="w-14 h-14 md:w-16 md:h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6 text-2xl">
                     <i class="fas fa-rocket"></i>
                 </div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-2">Funzionalità Demo</h3>
-                <p class="text-gray-600 mb-6">In un sito reale, questo pulsante gestirebbe le prenotazioni automaticamente.</p>
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">Funzionalità Demo</h3>
+                <p class="text-gray-600 text-sm md:text-base mb-6">In un sito reale, questo pulsante gestirebbe le prenotazioni automaticamente.</p>
                 
-                <!-- RESTORED: THE SALES PITCH -->
                 <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 mb-6 text-left">
                     <p class="font-bold text-gray-800 text-sm mb-2">Perché questo sito vende di più?</p>
                     <ul class="text-sm text-gray-600 space-y-2">
                         <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Caricamento istantaneo</li>
                         <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Foto ad alta qualità</li>
-                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Ottimizzato per Google (SEO)</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Ottimizzato per Google</li>
                     </ul>
                 </div>
 
@@ -315,16 +348,21 @@
         </div>
     </div>
 
-    <!-- SMART CONTENT ENGINE -->
+    <!-- SCRIPT (LOGIC & ASSETS) -->
     <script>
         AOS.init();
 
-        // --- ASSET DICTIONARY ---
+        // --- MOBILE MENU TOGGLE ---
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // --- ASSET DICTIONARY (FIXED) ---
         const themes = {
             pizza: {
                 bg: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=2070&auto=format&fit=crop", 
                 accent: "Il vero sapore del forno a legna",
-                // FIXED: Pizza Chef
                 chef: "https://images.unsplash.com/photo-1570946581013-83b974ed3fb7?q=80&w=1171&auto=format&fit=crop",
                 dishes: [
                     { img: "https://images.unsplash.com/photo-1564936281291-294551497d81?q=80&w=1052&auto=format&fit=crop", title: "Margherita DOP", desc: "Pomodoro San Marzano, Mozzarella di Bufala" },
@@ -335,7 +373,6 @@
             seafood: {
                 bg: "https://i.postimg.cc/7Pn9Lr7t/hero-mare.png",
                 accent: "Sapori freschi dal mare",
-                // FIXED: Seafood Chef
                 chef: "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=800&auto=format&fit=crop",
                 dishes: [
                     { img: "https://i.postimg.cc/qv4xVbgD/download.png", title: "Tagliolini allo scoglio", desc: "Tagliolini, frutti di mare e prezzemolo fresco" },
@@ -346,7 +383,6 @@
             meat: {
                 bg: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=2070&auto=format&fit=crop",
                 accent: "Eccellenza nella frollatura",
-                // FIXED: Steak Chef
                 chef: "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=800&auto=format&fit=crop",
                 dishes: [
                     { img: "https://i.postimg.cc/B6PJSCX9/download.png", title: "Bistecca Fiorentina", desc: "Taglio pregiato, cottura al sangue" },
@@ -357,7 +393,6 @@
             sushi: {
                 bg: "https://i.postimg.cc/g0rMQST0/e1ff5011-bc55-4fad-a6cd-0565dac7d24d.png",
                 accent: "Arte giapponese e fusione",
-                // FIXED: Sushi Chef
                 chef: "https://images.unsplash.com/photo-1711480023277-9f27496f10e6?q=80&w=687&auto=format&fit=crop",
                 dishes: [
                     { img: "https://i.postimg.cc/wvqB9NDT/download.png", title: "Sashimi Mix", desc: "Tagli pregiati di salmone e tonno" },
@@ -368,7 +403,6 @@
             traditional: {
                 bg: "https://i.postimg.cc/xT8VnR7W/download.png",
                 accent: "Cucina come una volta",
-                // FIXED: Traditional Chef
                 chef: "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=800&auto=format&fit=crop",
                 dishes: [
                     { img: "https://i.postimg.cc/MTGmRGh0/download.png", title: "Tagliatelle al Ragù", desc: "Pasta fresca tirata a mano" },
@@ -379,7 +413,6 @@
             generic: {
                 bg: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop",
                 accent: "Gusto ed eleganza",
-                // FIXED: Generic Chef
                 chef: "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=800&auto=format&fit=crop",
                 dishes: [
                     { img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800", title: "Antipasto della Casa", desc: "Selezione di salumi e formaggi" },
@@ -409,7 +442,7 @@
             document.querySelectorAll('.dynamic-name').forEach(el => el.textContent = businessName);
             document.querySelectorAll('.dynamic-city').forEach(el => el.textContent = cityName);
 
-            // 4. Update Map URL (NEW)
+            // 4. Update Map URL
             const mapFrame = document.getElementById('dynamic-map');
             if (mapFrame) {
                 const mapQuery = encodeURIComponent(cityName);
@@ -420,11 +453,8 @@
             const theme = themes[type] || themes['generic'];
 
             // 6. Apply Theme Assets
-            
-            // Hero Background
             document.getElementById('home').style.backgroundImage = `url('${theme.bg}')`;
             
-            // Tagline
             const taglineEl = document.getElementById('hero-tagline');
             if (tagline) {
                 taglineEl.textContent = decodeURIComponent(tagline);
@@ -432,10 +462,8 @@
                 taglineEl.textContent = theme.accent;
             }
 
-            // Chef Image
             document.getElementById('chef-img').src = theme.chef;
 
-            // Dishes (Loop through 3 cards)
             for (let i = 0; i < 3; i++) {
                 if (theme.dishes[i]) {
                     document.getElementById(`dish-img-${i+1}`).src = theme.dishes[i].img;
